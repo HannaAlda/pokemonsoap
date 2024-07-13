@@ -1,28 +1,17 @@
 package com.example.pokemonsoap.model;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@XmlRootElement(name = "Pokemon")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Pokemon {
+    private String abilities;
+    private String baseExperience;
+    private String heldItems;
+    private String id;
     private String name;
-    private String type;
-
-    @XmlElement
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @XmlElement
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    private String locationAreaEncounters;
 }

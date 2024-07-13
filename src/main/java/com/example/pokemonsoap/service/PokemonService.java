@@ -1,20 +1,16 @@
 package com.example.pokemonsoap.service;
 
 import com.example.pokemonsoap.model.Pokemon;
-import com.example.pokemonsoap.model.PokemonResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class PokemonService {
 
-    public PokemonResponse getPokemonData(String name) {
-        Pokemon pokemon = new Pokemon();
-        pokemon.setName(name);
-        pokemon.setType("Water"); // Ejemplo de tipo
+    private final RestTemplate restTemplate = new RestTemplate();
 
-        PokemonResponse response = new PokemonResponse();
-        response.setPokemon(pokemon);
-
-        return response;
+    public Pokemon getPokemonData(String name) {
+        String url = "https://pokeapi.co/api/v2/pokemon/" + name;
+        return restTemplate.getForObject(url, Pokemon.class);
     }
 }

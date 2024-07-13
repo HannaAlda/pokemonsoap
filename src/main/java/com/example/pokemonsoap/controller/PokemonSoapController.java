@@ -2,6 +2,7 @@ package com.example.pokemonsoap.controller;
 
 import com.example.pokemonsoap.model.PokemonRequest;
 import com.example.pokemonsoap.model.PokemonResponse;
+import com.example.pokemonsoap.model.Pokemon;
 import com.example.pokemonsoap.service.PokemonService;
 import com.example.pokemonsoap.service.RequestLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class PokemonSoapController {
     @ResponsePayload
     public PokemonResponse getPokemonData(@RequestPayload PokemonRequest request, HttpServletRequest httpRequest) {
         requestLogService.logRequest(httpRequest.getRemoteAddr(), "getPokemonData");
-        return pokemonService.getPokemonData(request.getName());
+        Pokemon pokemon = pokemonService.getPokemonData(request.getName());
+        PokemonResponse response = new PokemonResponse();
+        response.setPokemon(pokemon);
+        return response;
     }
 }

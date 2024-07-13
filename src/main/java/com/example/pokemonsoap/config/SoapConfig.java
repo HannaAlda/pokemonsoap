@@ -1,6 +1,9 @@
 package com.example.pokemonsoap.config;
+
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
@@ -9,7 +12,8 @@ import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
-import com.example.pokemonsoap.service.*;
+import com.example.pokemonsoap.service.PokemonService;
+
 
 import javax.xml.ws.Endpoint;
 
@@ -18,8 +22,11 @@ import javax.xml.ws.Endpoint;
 public class SoapConfig extends WsConfigurerAdapter {
 
     @Bean
-    public MessageDispatcherServlet messageDispatcherServlet() {
-        return new MessageDispatcherServlet();
+    public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
+        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+        servlet.setApplicationContext(applicationContext);
+        servlet.setTransformWsdlLocations(true);
+        return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
     @Bean
