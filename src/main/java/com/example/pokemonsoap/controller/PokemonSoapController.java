@@ -33,4 +33,6 @@ public class PokemonSoapController {
         response.setPokemon(pokemon);
         return response;
     }
+
+    
 }
